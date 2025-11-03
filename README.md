@@ -6,9 +6,9 @@ SimulIDE z-80 for teaching
 - see `sim` directory for hardware
 - see `src` directory for sample C code
 - add `subcircuits` folder as User data
-  - click gear icon on top left of circuit board, point `User data folder:` to wherever `subcircuits` folder from this repo is.
+  - click gear icon on top left of schematics, point `User data folder:` to wherever `subcircuits` folder from this repo is.
   - close and restart SimulIDE
-  - now you should see Components class `My Subcircuits` near the bottom of components list on the left.
+  - now you should see Components class `My Subcircuits` near the bottom of components list on the left. There should at least be an `exor` component that can be dragged to the schematics.
 - Code build instructions for Windows x64
   Compile with
   ```
