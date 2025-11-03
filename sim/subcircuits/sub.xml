@@ -1,7 +1,7 @@
 <!DOCTYPE SimulIDE>
 
 <itemlib>
-    <itemset category="CU-Semi" type="Subcircuit" folder=".">
+    <itemset category="My Subcircuits" type="Subcircuit" folder=".">
         
         <item name="exor" package="exor" data="exor"></item>
     
