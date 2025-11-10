@@ -12,7 +12,7 @@ SimulIDE z-80 for teaching
 - Code build instructions for Windows x64
   Compile with
   ```
-  sdcc -mz80 --no-std-crt0 --code-loc 0x0000 --data-loc 0x8000 --std c99 -Werror code-a.c
+  sdcc -mz80 --no-std-crt0 --code-loc 0x0000 --data-loc 0x8000 --std c99 --Werror code-a.c
   ```
   convert to bin with
   ```
