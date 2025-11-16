@@ -1,0 +1,17 @@
+#!/bin/sh
+
+sdasz80 -o startup-0.rel startup-0.s
+sdcc -mz80 --std c99 --Werror -c nmi-0.c -o nmi-0.rel
+sdcc -mz80 --std c99 --Werror -c main-0.c -o main-0.rel
+
+#linker that works
+#XXXXXXXXXXXX
+sdcc -mz80 --no-std-crt0 startup-0.rel nmi-0.rel main-0.rel -Wl-b_NMI_SEG=0x0066 -Wl-b_CODE=0x0090 -Wl-b_DATA=0x00D0 -o test.ihx
+#XXXXXXXXXXXXXXX
+sdld startup-0.rel nmi-0.rel main-0.rel -f link.txt -o test.ihx
+#XXXXXXXXXXXXXXXX
+!!!
+sdcc -mz80 --no-std-crt0 startup-0.rel nmi-0.rel main-0.rel -Wl-b_NMI_SEG=0x0066 --code-loc 0x0090 --data-loc 0x00D0 -o startup-0.ihx
+!!!
+
+reference SDCC manual: https://sdcc.sourceforge.net/doc/sdccman.pdf

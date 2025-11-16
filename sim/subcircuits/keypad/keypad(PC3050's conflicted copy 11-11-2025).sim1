@@ -1,6 +1,6 @@
 <circuit version="1.1.0-SR1" rev="2005" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
-<item itemtype="Package" CircId="Package-29" mainComp="false" Show_id="true" Show_Val="false" Pos="-20,-552" rotation="0" hflip="1" vflip="1" label="keypad3" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" boardPos="-1e+06,-1e+06" circPos="0,0" boardRot="-1e+06" circRot="0" boardHflip="1" boardVflip="1" SubcType="Board" Width="12" Height="14" Name="keypad3" Package_File="keypad3.package" Logic_Symbol="false" />
+<item itemtype="Package" CircId="Package-29" mainComp="false" Show_id="true" Show_Val="false" Pos="-20,-552" rotation="0" hflip="1" vflip="1" label="keypad" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" boardPos="-1e+06,-1e+06" circPos="0,0" boardRot="-1e+06" circRot="0" boardHflip="1" boardVflip="1" SubcType="Board" Width="12" Height="14" Name="keypad" Package_File="keypad.package" Logic_Symbol="false" />
 
 <item itemtype="KeyPad" CircId="KeyPad-1" mainComp="false" Show_id="false" Show_Val="false" Pos="12,-396" rotation="0" hflip="1" vflip="1" label="KeyPad-1" idLabPos="-8,-16" labelrot="0" valLabPos="-16,20" valLabRot="0" boardPos="16,8" circPos="12,-396" boardRot="0" circRot="0" boardHflip="1" boardVflip="1" Rows="6" Cols="4" Key_Labels="DEF⌫ABC÷789x456-123+*0#⏎" />
 
