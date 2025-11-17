@@ -1,32 +1,48 @@
-# ----  generic SDCC Makefile  -----------------------------------------------
+# Tools
+SDAS      := sdasz80
+SDCC      := sdcc
+SDOBJCOPY := sdobjcopy
 
-C_SRCS   := $(wildcard *.c)
-REL_SRCS := $(wildcard *.rel)
-IHXES    := $(C_SRCS:.c=.ihx)
-BINS     := $(C_SRCS:.c=.bin)
+CFLAGS    := -mz80 --std c99 --Werror
+LDFLAGS   := -mz80 --no-std-crt0
 
-# ---- keep intermediate .ihx files ------------------------------------------
-.SECONDARY: $(IHXES)
-
-# ---- cross-platform clean -----------------------------------------------
+# cross-platform clean
 ifeq ($(COMSPEC)$(ComSpec),)        # empty on Unix
   RM := rm -f
 else
   RM := del /F /Q                   # Windows
 endif
 
-.PHONY: all clean
+# Detect all prefixes like 01, 02, 03 from files named NN-reset.s
+PREFIXES := $(patsubst %-reset.s,%,$(wildcard ??-reset.s))
 
-all: $(BINS)
+# Default: build all detected binaries
+all: $(PREFIXES:%=%-run.bin)
 
-# build %.ihx from %.c --------------------------------------------------------
-%.ihx: %.c
-	sdcc -mz80 --no-std-crt0 --code-loc 0x0000 --data-loc 0x8000 --std c99 --Werror $<
+# Assemble NN-reset.s -> NN-reset.rel
+%-reset.rel: %-reset.s
+	$(SDAS) -o $@ $<
 
-# build %.bin from %.ihx ------------------------------------------------------
-%.bin: %.ihx
-	sdobjcopy -I ihex -O binary $< $@
+# Generic C compile: any *.c -> *.rel
+%.rel: %.c
+	$(SDCC) $(CFLAGS) -c $<
 
-# remove every intermediate / output file listed ------------------------------
+# For each prefix (01, 02, 03, ...) define how to link all its .rel files
+define DEFINE_PREFIX_RULES
+$(1)_CSRCS := $(wildcard $(1)-*.c)
+$(1)_RELS  := $$($(1)_CSRCS:.c=.rel)
+
+# Link all NN-*.rel (including NN-reset.rel via explicit prereq) with NN-mem.ld
+$(1)-run.ihx: $(1)-reset.rel $$($(1)_RELS) $(1)-mem.ld
+	$$(SDCC) $$(LDFLAGS) $(1)-reset.rel $$($(1)_RELS) -Wl-f,$(1)-mem.ld -o $$@
+endef
+
+# Instantiate rules for every detected prefix
+$(foreach P,$(PREFIXES),$(eval $(call DEFINE_PREFIX_RULES,$(P))))
+
+# Convert IHX -> BIN
+%-run.bin: %-run.ihx
+	$(SDOBJCOPY) -I ihex -O binary $< $@
+
 clean:
-	$(RM) *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.sym
+	$(RM) *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym
