@@ -8,3 +8,31 @@ src/*.map
 src/*.noi
 src/*.rel
 src/*.sym
+
+# macOS
+**/.DS_Store
+.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/Icon?
+**/._*
+
+# macOS Finder metadata
+**/.Spotlight-V100
+**/.Trashes
+**/.fseventsd
+
+# Windows
+**/Thumbs.db
+**/Thumbs.db:encryptable
+**/Desktop.ini
+**/$RECYCLE.BIN/
+
+# Office temp files
+**/~$*.docx
+**/~$*.doc
+**/~$*.pptx
+**/~$*.ppt
+**/~$*.xlsx
+**/~$*.xls
+**/~$*.tmp
