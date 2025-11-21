@@ -16,20 +16,15 @@ void loop() {
   uint16_t k=1,d=0;
   static uint16_t dOld=d;
   // Read digital input into the 16-bit "d" 
-  if (digitalRead(14)) d|=B_CLK;
+  for (int i=0; i<=14; ++i) {
+    if (digitalRead(i)) d|=k;
+    k=k<<1; 
+    }
   if (((dOld&B_CLK)==0) && ((d&B_CLK)!=0)) {
-    for (int i=0; i<=14; ++i) {
-      if (digitalRead(i)) d|=k;
-      k=k<<1; 
-      }
-    if ((d&B_CLK)!=0) {
-      lcd.setCursor((d&B_COL)>>9,(d&B_ROW)>>7);
-      char str[2]="\x0";
-      str[0]=d&0x7F;
-      lcd.print(str);
-      } else {
-      // Miss
-      }
+    lcd.setCursor((d&B_COL)>>9,(d&B_ROW)>>7);
+    char str[2]="\x0";
+    str[0]=d&0x7F;
+    lcd.print(str);
     }
   dOld=d;
   }
