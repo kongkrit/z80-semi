@@ -15,11 +15,18 @@
 
   LD SP, #STACK_TOP
 
+    ; B. Initialize Global Variables
+    ;    This is the critical step for your pointers!
+    call    gsinit
+
 ; Jump to the C code entry point.
 
 .globl _main      ; Linker resolves to C main function (note underscore)
 
-  JP _main
+  call _main
+
+hang:
+    jr      hang
 
 ; -----------------------------------------------------------------
 ; Interrupt Mode 1 Vector
@@ -40,3 +47,15 @@ trap_loop:
 ;.globl _nmi_isr   ; Linker resolves to C nmi_isr function
 
 ;  JP _nmi_isr
+
+    ; -----------------------------------------------------------
+    ; 3. Global Initialization Section
+    ;    SDCC generates the code to set *led_addr = 0x4000 here.
+    ; -----------------------------------------------------------
+    
+    .area   _GSINIT
+gsinit:
+    ; (Linker inserts instructions here automatically)
+
+    .area   _GSINIT_TAIL
+    ret

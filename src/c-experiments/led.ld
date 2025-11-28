@@ -1,3 +1,3 @@
 -b_CODE = 0x0100
 -b_DATA = 0x8100
--gSTACK_TOP = 0xFFFF
+-b_GSINIT = 0x0200
