@@ -1,0 +1,3 @@
+-b_CODE = 0x0070
+-b_DATA = 0x00C0
+-g_STACK_TOP = 0x0100
