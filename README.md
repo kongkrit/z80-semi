@@ -1,8 +1,8 @@
 # BareMetal-C-Labs
 SimulIDE z-80 for teaching
 
-- Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
-- Download [**GitHub Desktop**](https://desktop.github.com/download/)
+- Download and unzip **SimulIDE** from [SimulIDE](https://simulide.com/p/)
+- Download and install [**GitHub Desktop**](https://desktop.github.com/download/)
 ### 3 choices here - depending on your OS (choose just one):
 > #### 1a. Window WSL (highly recommended)
 > - follow detailed instructions [here](https://github.com/kongkrit/z80-semi/blob/main/vm/setup-deb13-wsl-tools-only.md).
@@ -26,20 +26,42 @@ SimulIDE z-80 for teaching
 >   ```
 #### Clone this repo to your computer
 - see `sim` directory for hardware
-- see `src` directory for sample C code
+- see `code` directory for sample C code
 - add `subcircuits` folder as User data
   - click gear icon on top left of schematics, point `User data folder:` to wherever `subcircuits` folder from this repo is.
   - close and restart SimulIDE
   - now you should see Components class `My Subcircuits` near the bottom of components list on the left. There should at least be an `exor` component that can be dragged to the schematics.
-- Code build instructions for Windows x64:
+- Code build instructions: 
+  - For WSL Windows x64:
+    
+    Run `wsl` that you installed. From `(Debian)` prompt. `cd` into `code` folder and type:
+    ```
+    make 001-run.bin
+    ```
+    you should see output like:
+    ```
+    sdasz80 -l -o default-startup.rel default-startup.s
+    cp default-startup.rel 001-startup.rel
+    cp default-startup.lst 001-startup.lst
+    sdcc -mz80 --std c99 --Werror -c 001-test-mem.c -o 001-test-mem.rel
+    sdcc -mz80 --std c99 --Werror -c default-nmi_handler.c -o default-nmi_handler.rel
+    cp default-nmi_handler.rel 001-nmi_handler.rel
+    cp default-nmi_handler.lst 001-nmi_handler.lst
+    sdcc -mz80 --no-std-crt0 001-startup.rel 001-test-mem.rel 001-nmi_handler.rel -Wl-u -Wl-f,001-memmap.ld -o 001-run.ihx
 
-  Compile with
-  ```
-  sdcc -mz80 --no-std-crt0 --code-loc 0x0000 --data-loc 0x8000 --std c99 --Werror code-a.c
-  ```
-  convert to bin with
-  ```
-  sdobjcopy -I ihex -O binary code-a.ihx code-a.bin
-  ```
-- Open SimulIDE and click on ROM and load `code-a.bin`
-- start simulation, strobe reset and see content in RAM.
+    Generating Binary and Disassembly 001-run.bin and 001-run.txs...
+
+    sdobjcopy -I ihex -O binary 001-run.ihx 001-run.bin
+    z80dasm -a -l -t -z -g0 001-run.bin ...
+    Warning: Code might not be 8080 compatible!
+    
+    Info: 8080 incompatibility warning can be ignored.
+    ```
+    If this is the case, you're ready to go.
+  - For Debian Linux:
+    This is similar to Windows x64 case, since you're already on Linux.
+  - For macOS:
+ 
+    Open `terminal` and `cd` into `code` folder. Follow WSL for Windows intructions
+- Open SimulIDE. Right click on ROM and select `Load data`. Use `.bin` file from your `code` folder as data.
+- Click the red square button to start simulation.
