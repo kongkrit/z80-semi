@@ -142,6 +142,7 @@ $(1)-run.bin: $(1)-run.ihx
 	}' > $$(@:%.bin=%.txs)
 	@echo ""
 	@echo "Info: 8080 incompatibility warning can be ignored."
+	@echo ""
 endef
 
 # Iterate over all detected NNN and evaluate the rules
