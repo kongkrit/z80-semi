@@ -117,6 +117,12 @@ You will be returned to Windows, with something similar to `C:\Users\username> `
 click windows start menu, type in `wsl settings` and run it (the blue-head penguin).
 
 Click `Networking` tab on the left. On the right, select `Networking Mode` to be `Mirrored`.
+#### Double check that your networking is now `mirrored`:
+Check for the content of file: `C:\Users\NAME\.wslconfig` and it should have this section:
+```
+[wsl2]
+networkingMode=Mirrored
+```
 ### Restart WSL
 Either:
 - Open start menu and look for `Debian` and run it
