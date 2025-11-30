@@ -86,7 +86,7 @@ endif
 # 4. NMI_HANDLER Logic - grep for "void nmi_handler..." in NNN-*.c files
 # grep returns 0 (found) -> NMI_HANDLER is blank
 # grep returns 1 (not found) -> copy default to NNN-nmi_handler, set NMI_HANDLER
-$(1)_HAS_ISR := $(shell perl -0777 -ne 'if (/void\s+nmi_handler\s*\(\s*(void)?\s*\)\s+__critical\s+__interrupt/) { print "yes"; exit; }' $(1)-*.c)
+$(1)_HAS_ISR := $(shell grep -Pzq "void\s+nmi_handler\s*\(\s*(void)?\s*\)\s+__critical\s+__interrupt" $(1)-*.c && echo yes)
 
 ifdef $(1)_HAS_ISR
     $(1)_NMI_HANDLER :=
