@@ -93,6 +93,12 @@ z80dasm -V
 It should say: `z80dasm, Z80 assembly language generating disassembler...`
 
 Check compilation:
+
+We run code from `code` folder inside
+```bash
+cd code
+```
+and we use `make` to build our C programs.
 ```bash
 make 000-run.bin
 ```
@@ -119,7 +125,7 @@ make clean
 ```
 and it should say:
 > ```
-> [baremetal-c]:/code$ make clean
+> [baremetal-c]:/labs/code$ make clean
 > rm -f *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
 > ```
 
