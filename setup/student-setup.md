@@ -70,7 +70,7 @@ It will take a while for the first time, but you will end up with a prompt:
 If you get the above prompt, your installation is successful.
 
 ---
-## 4. Test the tools (same for Windows and macOS)
+## 5. Test the tools (same for Windows and macOS)
 
 - Type all the commands from `[baremetal-c]:/code$` prompt (from now on, we will call `[baremetal-c]:/code$` the **tool-prompt** to indicate that you can only run tools from here):
 ### Check `sdcc` `z80dasm` and `make` -- all from **tool-prompt**:
@@ -104,7 +104,6 @@ make 000-run.bin
 ```
 and it should say:
 ```
-[baremetal-c]:/code$ make 000-run.bin
 sdasz80 -l -o default-startup.rel default-startup.s
 cp default-startup.rel 000-startup.rel
 cp default-startup.lst 000-startup.lst
@@ -125,21 +124,20 @@ make clean
 ```
 and it should say:
 > ```
-> [baremetal-c]:/labs/code$ make clean
 > rm -f *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
 > ```
 
 ---
-## 5. How to logout of the tool prompt.
+## 6. How to logout of the tool prompt.
 and get back to `tool-prompt`:
 
 Log out of **tool-prompt**. Easy. type `ctrl+d` or type `exit` and you will see:
 > ```
-> [baremetal-c]:/code$
+> [baremetal-c]:/labs/... #
 > exit
 > ```
-and the prompt changes to `PS C:\...` (Windows), or `name@computername code %` (macOS)
+and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal-C-Labs %` (macOS)
 
 ---
-## 6. How to get back to the **tool-prompt**:
+## 7. How to get back to the **tool-prompt**:
 Easy. Make sure you're in the correct folder (`BareMetal-C-Labs`) and repeat step 4. above.
