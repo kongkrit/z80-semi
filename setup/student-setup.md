@@ -56,6 +56,9 @@ and this is what the output from the computer (example):
   https://github.com/kongkrit/BareMetal-C-Labs
   ```
 - Choose **Local path**. For **Windows & macOS**, we recommend your `Documents` folder.
+- Github will try to foce you to use `Documents/GitHub` folder, but you can override it!
+  - **Windows:** Make Local path `C:\Users\NAME\Documents\BareMetal-C-Labs`
+  - **macOS:**
 - Click `Clone` and wait for it to finish. Now everything resides in `Documents/BareMetal-C-Labs` folder.
 
 ---
