@@ -88,14 +88,18 @@ RUN sed -i '/path-exclude=\/usr\/share\/man/d' /etc/dpkg/dpkg.cfg.d/docker && \
 # 6. Customize the Prompt and add some nice aliases
 # This changes the prompt color and text so students know they are
 # inside the container (and not on their Mac/Windows host).
-# RUN printf "export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '" >> /root/.bashrc
 RUN cat <<'EOF' >> /root/.bashrc
 alias ls='ls --color=auto'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -l'
-export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '
+export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\] \$ '
 EOF
+
+# note on prompt color:
+# 01;33m is bright yellow
+# 01;34m is bright blue
+# 01;36m is bright cyan
 
 # 7. Set Working Directory
 # This is where the volume will be mounted by default.
@@ -167,7 +171,8 @@ docker buildx ls
 
 ---
 ## 8. Testing the environment
-Run the following in `powershell` or macOS terminal (`zsh`):
+- Make sure `Docker desktop` is running.
+- Run the following in `powershell` or macOS terminal (`zsh`):
 ```
 docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
 ```
