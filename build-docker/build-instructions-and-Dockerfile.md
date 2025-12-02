@@ -167,25 +167,23 @@ docker buildx ls
 
 ---
 ## 8. Undoing stuff - delete a dud push to docker hub
-You generally cannot delete pushed images from the command line. You must use the Docker Hub Website.
-
-Here is the step-by-step process:
+Pushed images generally cannot be deleted from the command line. You must use the Docker Hub Website.
 
 1. Log in to [hub.docker.com](https://hub.docker.com).
 2. Click on **Repositories** in the top menu.
-3. Click on your repository name (e.g., `yourusername/baremetal-c`).
-4. Click on the **"Tags"** tab (this is the important part; do not look for a delete button on the main page).
+3. Click on repository name (e.g., `kongkrit/baremetal-c`).
+4. Click on the **"Tags"** tab. Do not look for a delete button on the main page.
 5. Find the specific version tag you want to remove (e.g., `v1` or `oops-broken`).
 6. Check the box next to that tag.
 7. Click the **Delete** button that appears.
 
-**Critical Warning for your Class**
+**Critical Warning**
 
 **Do not delete the `latest` tag** unless you immediately plan to push a new one.
 
-If a student tries to run `docker run ... yourname/baremetal-c` and the `latest` tag is missing, the command will fail with a "manifest not found" error, and you will get emails from confused freshmen.
+If a student tries to run `docker run ... yourname/baremetal-c` and the `latest` tag is missing, the command will fail with a "manifest not found" error, and students cannot work.
 
-- **To fix a bad version:** Just rebuild and push again. It will automatically overwrite the old `latest`.
+- **To fix a bad version:** rebuild and push again. It will automatically overwrite the old `latest`.
 - **To remove a specific bad tag (e.g., `v2`):** Delete it via the website using the steps above.
 
 ### see `student-setup.md` for deployment
