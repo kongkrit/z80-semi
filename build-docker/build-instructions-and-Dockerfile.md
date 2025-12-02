@@ -128,8 +128,8 @@ docker buildx build \
 ```
 
 ---
-### 7. Subsequent build errors:
-Subsequent builds may fail with many errors, which can be:
+### 7. Fixing possible build errors:
+Builds may fail with many types of errors, for example:
 ```
 [+] Building 0.0s (1/1) FINISHED                              docker-container:class_builder
  => ERROR [internal] booting buildkit                                                   0.0s
@@ -166,7 +166,16 @@ docker buildx ls
 - If you see `class_builder*` with a star (`*`) next to it, you are good to build.
 
 ---
-## 8. Undoing stuff - delete a dud push to docker hub
+## 8. Testing the environment
+Run the following in `powershell` or macOS terminal (`zsh`):
+```
+docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
+```
+If the prompt changes to: `[baremetal-c]:/labs #` then it's good.
+See `student-setup.md` for more details.
+
+---
+## 9. Undoing stuff - delete a dud push to docker hub
 Pushed images generally cannot be deleted from the command line. You must use the Docker Hub Website.
 
 1. Log in to [hub.docker.com](https://hub.docker.com).
