@@ -4,7 +4,7 @@
 ### Conventions:
 This is what you should type or copy & paste into computer (example):
 ```
-click copy button on the right, or type me in
+type or paste me in
 ```
 and this is what the output from the computer (example):
 > ```
