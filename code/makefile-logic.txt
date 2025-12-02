@@ -10,8 +10,8 @@ definitions: NNN = 3-digit number, from 000-999
 -always do:
     $(SDCC) $(CFLAGS) -c default-nmi_handler.c -o default-nmi_handler.rel
 
--for target "NNN-run.bin", bomb if NNN-*.c doesn't exist
--fpr target "all" -- iterate through all NNN's:
+-for target "NNN-run.bin", bomb if (NNN-*.c OR NNN-*.rel_) doesn't exist
+-for target "all" -- iterate through all NNN's:
 
 For each NNN,
 
@@ -23,20 +23,31 @@ For each NNN,
 	    %.rel %.lst: %.c
 	    $(SDCC) $(CFLAGS) -c $< -o $*.rel
     
-    -$C_OBJ = NNN-*.rel, except NNN-nmi_handler.rel
+    -For every NNN-*.rel_ do:
+      %.rel: %.rel_
+      $(CP) $*.rel_ $*.rel
     
-    -If NNN-startup.s does not exists
-       copy default-startup.lst to NNN-startup.lst
-       copy default-startup.rel to NNN-startup.rel
-       
-    -Set $ASM_OBJ is NNN-startup.rel
+    -For every NNN-*.lst_ do:
+      %.stl: %.lst_
+      $(CP) $*.lst_ $*.lst
     
-    -If `grep -Pzq "void\s+nmi_handler\s*\(\s*(void)?\s*\)\s+__critical\s+__interrupt" NNN-*.c` returns 0:
+    After making all *.rel, whether by $(CP) or $(SDCC),
+      -$REL_OBJ = NNN-*.rel, except NNN-nmi_handler.rel
+
+    -If grep finds "nmi_handler" in any NNN-*.rel or NNN-*.rel_:
        $NMI_HANDLER is blank
      else
        copy default-nmi_handler.lst to NNN-nmi_handler.lst
        copy default-nmi_handler.rel to NNN-nmi_handler.rel
        $NMI_HANDLER is NNN-nmi_handler.rel
+
+    comment: must do grep before checking for existence of NNN-startup.s
+
+    -If NNN-startup.s does not exists
+       copy default-startup.lst to NNN-startup.lst
+       copy default-startup.rel to NNN-startup.rel
+       
+    -Set $ASM_OBJ is NNN-startup.rel
     
     -If NNN-memmap.ld exists:
        $MEMMAP is NNN-memmap.ld
@@ -75,6 +86,8 @@ For each NNN,
             else { for (i=0; i<count; i++) print buffer[i]; } \
     	}' > $(@:%.bin=%.txs)
 		
+    -copy NNN-run.bin to ../sim
+
 EndFor each NNN
 
--"clean" by removing *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
+-"clean" by removing *.asm *.bin ../sim/*.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs

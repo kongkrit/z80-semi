@@ -14,6 +14,8 @@ DASMFLAGS := -a -l -t -z -g0
 RM := rm -f
 CP := cp
 
+NULL_DEV := /dev/null
+
 # -----------------------------------------------------------------------------
 # Definitions: NNN = 3-digit number, from 000-999
 # Strict scan for [0-9][0-9][0-9]-*.c OR [0-9][0-9][0-9]-*.rel_
@@ -72,53 +74,51 @@ $(1)_ALL_RELS      := $$($(1)_COMPILED_RELS) $$($(1)_COPIED_RELS)
 
 $(1)_REL_OBJ    := $(filter-out $(1)-nmi_handler.rel, $$($(1)_ALL_RELS))
 
-# --- NEW: Calculate Valid LST Files ---
-# Only ask for LSTs if the source (.c) or the pre-compiled lst (.lst_) actually exists.
-$(1)_LSTSRCS     := $(wildcard $(1)-*.lst_)
-$(1)_COMPILED_LST:= $$($(1)_CSRCS:.c=.lst)
-$(1)_COPIED_LST  := $$($(1)_LSTSRCS:.lst_=.lst)
-$(1)_REQ_LSTS    := $$($(1)_COMPILED_LST) $$($(1)_COPIED_LST)
-# --------------------------------------
+# 3. NMI_HANDLER Logic
+# Check all .rel and .rel_ objects for _nmi_handler
+$(1)_HAS_ISR := $(shell perl -0777 -ne 'if (/\s_nmi_handler\s/) { print "yes"; exit; }' $(wildcard $(1)-*.rel $(1)-*.rel_) /dev/null)
 
-# 3. ASM_OBJ Logic (Check if NNN-startup.s exists)
+ifdef $(1)_HAS_ISR
+    $(1)_NMI_HANDLER :=
+else
+    $(1)-nmi_handler.rel: default-nmi_handler.rel default-nmi_handler.lst
+		$$(CP) default-nmi_handler.rel $$@
+		$$(CP) default-nmi_handler.lst $$(@:.rel=.lst)
+    $(1)_NMI_HANDLER := $(1)-nmi_handler.rel
+endif
+
+# 4. ASM_OBJ Logic
+# If NNN-startup.s exists -> use it
 ifneq ($(wildcard $(1)-startup.s),)
     $(1)_ASM_OBJ := $(1)-startup.rel
 else
+    # Else -> copy default-startup.rel/.lst to NNN-startup.rel/.lst
     $(1)-startup.rel: default-startup.rel default-startup.lst
 		$$(CP) default-startup.rel $$@
 		$$(CP) default-startup.lst $$(@:.rel=.lst)
     $(1)_ASM_OBJ := $(1)-startup.rel
 endif
 
-# 4. MEMMAP Logic
+# 5. MEMMAP Logic
+# If NNN-memmap.ld exists -> use it, else -> default-memmap.ld
 ifneq ($(wildcard $(1)-memmap.ld),)
     $(1)_MEMMAP := $(1)-memmap.ld
 else
     $(1)_MEMMAP := default-memmap.ld
 endif
 
-# 5. Generate NNN-run.ihx
-# Changed dependency from $$($(1)_REL_OBJ:.rel=.lst) to $$($(1)_REQ_LSTS)
-# NOTE: The lines below MUST start with a TAB.
-$(1)-run.ihx: $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$($(1)_MEMMAP) $$($(1)_REQ_LSTS) default-nmi_handler.rel
-	@echo "Linking $$@..."
-	@if grep -q "nmi_handler" $$($(1)_REL_OBJ) /dev/null; then \
-		echo " --> Custom ISR detected."; \
-		NMI_OBJ=""; \
-	else \
-		echo " --> No Custom ISR. Using default."; \
-		$(CP) default-nmi_handler.rel $(1)-nmi_handler.rel; \
-		$(CP) default-nmi_handler.lst $(1)-nmi_handler.lst; \
-		NMI_OBJ="$(1)-nmi_handler.rel"; \
-	fi; \
-	echo "$(SDCC) $(LDFLAGS) $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$$$NMI_OBJ -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@"; \
-	$(SDCC) $(LDFLAGS) $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$$$NMI_OBJ -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@
+# 6. Generate NNN-run.ihx
+# Note: $(1)_REL_OBJ depends on the pattern rules defined earlier to generate/copy .rel files
+$(1)-run.ihx: $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$($(1)_NMI_HANDLER) $$($(1)_MEMMAP) $$($(1)_REL_OBJ:.rel=.lst)
+	$(SDCC) $(LDFLAGS) $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$($(1)_NMI_HANDLER) -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@
 
-# 6. Convert NNN-run.ihx to NNN-run.bin, Disassemble, and Copy to ../sim
+# 7. Convert NNN-run.ihx to NNN-run.bin, Disassemble, and Copy to ../sim
 $(1)-run.bin: $(1)-run.ihx
-	@echo "Generating Binary and Disassembly..."
+	@echo "" 
+	@echo "Generating Binary and Disassembly $(1)-run.bin and $(1)-run.txs..."
+	@echo ""
 	$(SDOBJCOPY) -I ihex -O binary $$< $$@
-	@$(Z80DASM) $(DASMFLAGS) $$@ 2> /dev/null | \
+	@$(Z80DASM) $(DASMFLAGS) $$@ | \
 	awk ' \
 	BEGIN { count = 0; } \
 	/^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$$$$/ { \
@@ -145,8 +145,6 @@ $(1)-run.bin: $(1)-run.ihx
 	}' > $$(@:%.bin=%.txs)
 	@echo "Copying to simulation folder..."
 	$$(CP) $$@ ../sim/$$@
-	@echo "-------------------------------------"
-	@echo ""
 endef
 
 # Iterate over all detected NNN and evaluate the rules
@@ -156,4 +154,4 @@ $(foreach P,$(PREFIXES),$(eval $(call DEFINE_RUN_RULES,$(P))))
 # Clean
 # -----------------------------------------------------------------------------
 clean:
-	$(RM) *.asm *.bin ../sim/*.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
+	$(RM) *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs ../sim/*.bin
