@@ -50,12 +50,15 @@ and this is what the output from the computer (example):
 ## 1. (Windows & macOS) Install Github Desktop
 - Download GitHub desktop from [here](https://desktop.github.com/download/).
 - Run it. You don't need to sign up, but you need to provide an email address and name. It's best that you **do not share** email addresses with friends. It can cause problems later.
-- Click **Clone a repository from the internet** and select **URL**.
+- From **File** menu, click **Clone a repository from the internet** and select **URL**.
 - Clone the following URL:
   ```
   https://github.com/kongkrit/BareMetal-C-Labs
   ```
 - Choose **Local path**. For **Windows & macOS**, we recommend your `Documents` folder.
+- Github will try to foce you to use `Documents/GitHub` folder, but you can override it!
+  - **Windows:** use **Local path** `C:\Users\NAME\Documents\BareMetal-C-Labs`
+  - **macOS:** use **Local path** `/Users/NAME/Documents/BareMetal-C-Labs`
 - Click `Clone` and wait for it to finish. Now everything resides in `Documents/BareMetal-C-Labs` folder.
 
 ---
@@ -85,8 +88,9 @@ and this is what the output from the computer (example):
   - Wait for the docker icon (a whale with containers on top) on menu bar to stop dancing.
 
 ---
-## 3. Pull the course software container
-- Windows and macOS instructions are a bit different here.
+## 3. Prepare to pull the course software container
+
+Windows and macOS instructions are a bit different here.
 ### For Windows:
 - Open **File Explorer** and go to where your project is from GitHub clone above (`Documents/BareMetal-C-Labs`) was recommended.
 - Go into `BareMetal-C-Labs` folder
@@ -105,7 +109,7 @@ and this is what the output from the computer (example):
   > ```
 
 ---
-## 4. Launching the tool environment
+## 4. Pull and launch the tool environment
 ### For both Windows and macOS:
 - Make sure `Docker desktop` is running.
 - Copy and paste the command below into command prompt:
@@ -194,4 +198,4 @@ and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal
 ## 7. How to get back to the **tool-prompt**:
 - Make sure that `Docker desktop` is running.
 - Make sure you're in the correct folder (`BareMetal-C-Labs`).
-- Repeat steps in section **4. Launching the tool environment** [above](#4-launching-the-tool-environment).
+- Repeat steps in section **4. Launching the tool environment** [above](#4-pull-and-launch-the-tool-environment).
