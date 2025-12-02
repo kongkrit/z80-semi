@@ -1,4 +1,63 @@
 # BareMetal-C-Labs
+Setup the tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/student-setup.md).
+
+Ignore text below.
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+## unfinished section
+## ignore text below:
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
 SimulIDE z-80 for teaching
 
 - Download and unzip **SimulIDE** from [SimulIDE](https://simulide.com/p/)
