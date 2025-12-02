@@ -85,8 +85,9 @@ and this is what the output from the computer (example):
   - Wait for the docker icon (a whale with containers on top) on menu bar to stop dancing.
 
 ---
-## 3. Pull the course software container
-- Windows and macOS instructions are a bit different here.
+## 3. Prepare to pull the course software container
+
+Windows and macOS instructions are a bit different here.
 ### For Windows:
 - Open **File Explorer** and go to where your project is from GitHub clone above (`Documents/BareMetal-C-Labs`) was recommended.
 - Go into `BareMetal-C-Labs` folder
@@ -105,7 +106,7 @@ and this is what the output from the computer (example):
   > ```
 
 ---
-## 4. Launching the tool environment
+## 4. Pull and launch the tool environment
 ### For both Windows and macOS:
 - Make sure `Docker desktop` is running.
 - Copy and paste the command below into command prompt:
@@ -194,4 +195,4 @@ and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal
 ## 7. How to get back to the **tool-prompt**:
 - Make sure that `Docker desktop` is running.
 - Make sure you're in the correct folder (`BareMetal-C-Labs`).
-- Repeat steps in section **4. Launching the tool environment** [above](#4-launching-the-tool-environment).
+- Repeat steps in section **4. Launching the tool environment** [above](#4-pull-and-launch-the-tool-environment).
