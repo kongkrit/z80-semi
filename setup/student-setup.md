@@ -13,7 +13,7 @@ and this is what the output from the computer (example):
 - **Windows:** contains specific Windows only information.
 - **macOS:** contains specific macOS only information.
 ### Guidelines:
-- Whatever folder you choose, make sure there is no `space` in the full path:
+- Whatever folder you choose, make sure there is no `space` in the path name:
 - We recommend you to use your `Documents` folder, but here are some **bad examples**. 
   - **Windows:** `C:\Users\NAME\Desktop\whatever\my cat is cute\BareMetal-C-Labs` is **bad** -- use `my-cat-is-cute` instead.
   - **macOS:** `/Users/NAME/Desktop/my cat is cute/BareMetal-C-Labs` is **bad** -- use `my-cat-is-cute` instead.
