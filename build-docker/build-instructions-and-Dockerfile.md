@@ -121,7 +121,7 @@ docker buildx build \
 ---
 For subsequent builds:
 - Edit `Dockerfile`
-- rebuild: **Update version number (shown as 1.4 below)**
+- rebuild: **Update version number below**
 ```bash
 # Define the version here
 VERSION=1.4
