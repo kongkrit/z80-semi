@@ -30,7 +30,7 @@ the text in the box with **`|`** on the left is the output from the computer (ex
   ```
   turn windows features on or off
   ```
-  Run it. Scroll down and check
+  Run it. Scroll down and check ✔
   ```
   ☑ Windows Subsystem for Linux
   ```
