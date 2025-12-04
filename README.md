@@ -1,5 +1,7 @@
 # BareMetal-C-Labs
 1. Setup Tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/1-setup-tools.md).
+2. Setup `SimulIDE` by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/2-setup-simulide.md).
+3. Setup `VS Code` by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/3-setup-vs-code.md).
 
 Ignore text below.
 ---
