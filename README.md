@@ -1,5 +1,5 @@
 # BareMetal-C-Labs
-Setup the tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/student-setup.md).
+1. Setup Tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/1-setup-tools.md).
 
 Ignore text below.
 ---
