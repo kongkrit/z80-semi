@@ -4,7 +4,7 @@
 ### Conventions:
 This is what you should type or copy & paste into computer (example):
 ```
-type or paste me in
+type, paste, or take action. 
 ```
 and if you see a vertical line **`|`** to the left of a box,
 the text in the box with **`|`** on the left is the output from the computer (example):
