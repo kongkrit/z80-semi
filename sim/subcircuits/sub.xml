@@ -1,17 +1,18 @@
 <!DOCTYPE SimulIDE>
 
 <itemlib>
-	<itemset category="My SubCircuits" type="Subcircuit" folder=".">
+	<itemset category="BareMetal-C SubCircuits" type="Subcircuit" folder=".">
 
+		<item name="0xC000_toggle" package="0xC000_toggle" data="0xC000_toggle"></item>
+		<item name="0xC00X_toggle" package="0xC00X_toggle" data="0xC00X_toggle"></item>
 		<item name="out_led_d0" package="out_led_d0" data="out_led_d0"></item>
-
-		<item name="exor" package="exor" data="exor"></item>
 		<item name="out_led_d0_old" package="out_led_d0_old" data="out_led_d0_old"></item>
 	
 	</itemset>
 	
-    <itemset category="My SubBlocks" type="Subcircuit" folder=".">
-		
+    <itemset category="BareMetal-C Sub-SubCircuits" type="Subcircuit" folder="_subsub">
+	
+		<item name="exor" package="exor" data="exor"></item>
         <item name="keypad" package="keypad" data="keypad"></item>
         <item name="read2clr" package="read2clr" data="read2clr"></item>
         <item name="read2clr8" package="read2clr8" data="read2clr8"></item>
