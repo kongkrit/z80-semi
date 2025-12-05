@@ -1,7 +1,11 @@
 # BareMetal-C-Labs
+GitHub repo is at (https://github.com/kongkrit/BareMetal-C-Labs).
+
+## Docoment done
 - [x] 1. Setup Tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/1-setup-tools.md).
 - [ ] 2. Setup `SimulIDE` by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/2-setup-simulide.md).
 - [ ] 3. Setup `VS Code` by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/3-setup-vs-code.md).
+- [ ] 4. Cheat sheet
 
 ## Peripherals designed
 - [x] 1. 0xC000-0xC003 toggle switches
