@@ -34,17 +34,25 @@
 
 <item itemtype="Fixed Voltage" CircId="Fixed Voltage-22" mainComp="false" Show_id="false" Show_Val="false" Pos="-884,84" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-22" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
 
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-23" mainComp="false" Show_id="false" Show_Val="false" Pos="-724,4" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-23" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
 <item itemtype="Subcircuit" CircId="0xE000_E003_LEDs-44" mainComp="false" Show_id="true" Show_Val="false" Pos="-668,-52" rotation="0" hflip="1" vflip="1" label="0xE000_E003_LEDs-44" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Switch" CircId="Switch-45" mainComp="false" Show_id="false" Show_Val="false" Pos="-716,-44" rotation="0" hflip="-1" vflip="1" label="Switch-45" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="true" Poles="1" />
+<item itemtype="Switch" CircId="Switch-45" mainComp="false" Show_id="true" Show_Val="false" Pos="-716,-44" rotation="0" hflip="-1" vflip="1" label="DATA" idLabPos="-13.5311,-23.7756" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="true" Poles="1" />
 
 <item itemtype="Bus" CircId="Bus-46" mainComp="false" Show_id="false" Show_Val="false" Pos="-684,-44" rotation="0" hflip="1" vflip="1" label="Bus-46" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="1 _bits" Start_Bit="0" />
 
 <item itemtype="Rail" CircId="Rail-47" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-740,-68" rotation="90" hflip="1" vflip="1" label="Rail-47" idLabPos="-5,-10" labelrot="-90" valLabPos="-12,6" valLabRot="-90" Voltage="5 V" />
 
 <item itemtype="Ground" CircId="Ground-48" mainComp="false" Show_id="false" Show_Val="false" Pos="-740,-28" rotation="0" hflip="1" vflip="1" label="Ground-48" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Push" CircId="Push-49" mainComp="false" Show_id="true" Show_Val="false" Pos="-716,20" rotation="0" hflip="1" vflip="1" label="WRITE" idLabPos="-15.7756,18.42" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" Poles="1" />
+
+<item itemtype="Resistor" CircId="Resistor-51" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-756,-4" rotation="90" hflip="1" vflip="1" label="Resistor-51" idLabPos="-16,-24" labelrot="0" valLabPos="-13.0822,-18.4644" valLabRot="0" Resistance="3.3 kΩ" />
+
+<item itemtype="Ground" CircId="Ground-54" mainComp="false" Show_id="false" Show_Val="false" Pos="-692,44" rotation="0" hflip="1" vflip="1" label="Ground-54" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Node" CircId="Node-52" mainComp="false" Pos="-740,-52" />
+
+<item itemtype="Node" CircId="Node-53" mainComp="false" Pos="-740,20" />
 
 <item itemtype="Connector" uid="Connector-7" startpinid="Bus-2-ePin16" endpinid="Fixed Voltage-3-outnod" pointList="-780,-92,-788,-92,-788,-164,-868,-164" />
 
@@ -78,8 +86,6 @@
 
 <item itemtype="Connector" uid="Connector-22" startpinid="Bus-2-ePin1" endpinid="Fixed Voltage-20-outnod" pointList="-780,28,-788,28,-788,100,-868,100" />
 
-<item itemtype="Connector" uid="Connector-98" startpinid="Fixed Voltage-23-outnod" endpinid="0xE000_E003_LEDs-44-WR_" pointList="-708,4,-676,4,-676,-28" />
-
 <item itemtype="Connector" uid="Connector-99" startpinid="0xE000_E003_LEDs-44-ADDR" endpinid="Bus-2-ePin0" pointList="-676,-44,-676,-100,-772,-100,-772,-92" />
 
 <item itemtype="Connector" uid="Connector-104" startpinid="Bus-46-ePin0" endpinid="0xE000_E003_LEDs-44-DATA" pointList="-684,-44,-684,-36,-676,-36" />
@@ -88,6 +94,18 @@
 
 <item itemtype="Connector" uid="Connector-106" startpinid="Ground-48-Gnd" endpinid="Switch-45-switch0pinN" pointList="-740,-44,-732,-44" />
 
-<item itemtype="Connector" uid="Connector-107" startpinid="Switch-45-switch1pinN" endpinid="Rail-47-outnod" pointList="-732,-52,-740,-52" />
+<item itemtype="Connector" uid="Connector-108" startpinid="Resistor-51-lPin" endpinid="Node-52-1" pointList="-756,-20,-756,-52,-740,-52" />
+
+<item itemtype="Connector" uid="Connector-109" startpinid="Switch-45-switch1pinN" endpinid="Node-52-0" pointList="-732,-52,-740,-52" />
+
+<item itemtype="Connector" uid="Connector-110" startpinid="Node-52-2" endpinid="Rail-47-outnod" pointList="-740,-52,-740,-52" />
+
+<item itemtype="Connector" uid="Connector-112" startpinid="Node-53-1" endpinid="0xE000_E003_LEDs-44-WR_" pointList="-740,20,-740,-4,-684,-4,-684,-28,-676,-28" />
+
+<item itemtype="Connector" uid="Connector-113" startpinid="Resistor-51-rPin" endpinid="Node-53-0" pointList="-756,12,-756,20,-740,20" />
+
+<item itemtype="Connector" uid="Connector-114" startpinid="Node-53-2" endpinid="Push-49-pinP0" pointList="-740,20,-732,20" />
+
+<item itemtype="Connector" uid="Connector-115" startpinid="Push-49-switch0pinN" endpinid="Ground-54-Gnd" pointList="-700,20,-692,20,-692,28" />
 
 </circuit>
