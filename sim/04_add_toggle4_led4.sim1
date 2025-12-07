@@ -1,6 +1,6 @@
 <circuit version="1.1.0-SR1" rev="2005" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
-<item itemtype="MCU" CircId="Z80-2" mainComp="false" Show_id="true" Show_Val="false" Pos="-828,156" rotation="0" hflip="1" vflip="1" label="Z80" idLabPos="23.4707,-16.3727" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="true" Producer="Zilog" CMOS="false" Single cycle I/O="false" Int_Vector="false" MainMcu="false" />
+<item itemtype="MCU" CircId="Z80-2" mainComp="false" Show_id="true" Show_Val="false" Pos="-828,156" rotation="0" hflip="1" vflip="1" label="Z80" idLabPos="23.4707,-16.3727" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="true" Producer="Zilog" CMOS="false" Single cycle I/O="false" Int_Vector="false" MainMcu="true" />
 
 <item itemtype="Memory" CircId="Memory-5" mainComp="false" Show_id="true" Show_Val="false" Pos="-668,220" rotation="0" hflip="1" vflip="1" label="ROM: 0x0000-0x3FFF" idLabPos="-39.154,-79.9623" labelrot="0" valLabPos="-16,20" valLabRot="0" Address_Bits="14 _bits" Data_Bits="8 _bits" Persistent="true" Asynch="true" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" Mem="243,237,86,49,0,192,195,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,254,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,195,46,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,120,177,40,8,17,0,64,33,49,1,237,176,205,48,1,205,23,1,24,254,33,16,64,125,214,240,124,222,191,48,10,117,35,116,43,1,16,0,9,24,238,24,254,237,69,201," />
 
@@ -76,21 +76,37 @@
 
 <item itemtype="Buffer" CircId="Buffer-65" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,304" rotation="270" hflip="1" vflip="1" label="Buffer-65" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="true" Open_Collector="false" Tristate="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="Subcircuit" CircId="out_led_d0-105" mainComp="false" Show_id="false" Show_Val="false" Pos="-780,24" rotation="0" hflip="1" vflip="1" label="out_led_d0-105" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0">
-<mainCompProps MainCompId="SwitchDip-75" State="240" />
+<item itemtype="Subcircuit" CircId="0xC000_C003_toggles-109" mainComp="false" Show_id="false" Show_Val="false" Pos="-848,12" rotation="0" hflip="1" vflip="1" label="0xC000_C003_toggles-109" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0">
+<mainCompProps MainCompId="Switch-210" Norm_Close="false" DT="true" Poles="1" />
 
-<mainCompProps MainCompId="SwitchDip-5" State="0" />
+<mainCompProps MainCompId="Switch-172" Norm_Close="false" DT="true" Poles="1" />
 
-<mainCompProps MainCompId="SwitchDip-44" State="240" />
+<mainCompProps MainCompId="Switch-217" Norm_Close="false" DT="true" Poles="1" />
 
-<mainCompProps MainCompId="SwitchDip-122" State="252" />
+<mainCompProps MainCompId="Led-247" Color="White" Grounded="false" Threshold="1 V" MaxCurrent="4 mA" Resistance="1 Ω" />
+
+<mainCompProps MainCompId="Led-254" Color="White" Grounded="false" Threshold="1 V" MaxCurrent="4 mA" Resistance="1 Ω" />
+
+<mainCompProps MainCompId="Led-176" Color="White" Grounded="false" Threshold="1 V" MaxCurrent="4 mA" Resistance="1 Ω" />
+
+<mainCompProps MainCompId="Switch-214" Norm_Close="false" DT="true" Poles="1" />
+
+<mainCompProps MainCompId="Led-194" Color="White" Grounded="false" Threshold="1 V" MaxCurrent="4 mA" Resistance="1 Ω" />
 </item>
 
-<item itemtype="Tunnel" CircId="Tunnel-106" mainComp="false" Show_id="false" Show_Val="false" Pos="-796,32" rotation="0" hflip="1" vflip="1" label="Tunnel-106" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
+<item itemtype="Subcircuit" CircId="0xE000_E003_LEDs-110" mainComp="false" Show_id="false" Show_Val="false" Pos="-844,84" rotation="0" hflip="1" vflip="1" label="0xE000_E003_LEDs-110" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Tunnel" CircId="Tunnel-107" mainComp="false" Show_id="false" Show_Val="false" Pos="-796,40" rotation="0" hflip="1" vflip="-1" label="Tunnel-107" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="DATA" IsBus="true" />
+<item itemtype="Tunnel" CircId="Tunnel-111" mainComp="false" Show_id="false" Show_Val="false" Pos="-868,20" rotation="0" hflip="1" vflip="1" label="Tunnel-111" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
 
-<item itemtype="Tunnel" CircId="Tunnel-108" mainComp="false" Show_id="false" Show_Val="false" Pos="-800,48" rotation="0" hflip="1" vflip="1" label="Tunnel-108" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="WR_" IsBus="false" />
+<item itemtype="Tunnel" CircId="Tunnel-112" mainComp="false" Show_id="false" Show_Val="false" Pos="-860,92" rotation="0" hflip="1" vflip="1" label="Tunnel-112" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
+
+<item itemtype="Tunnel" CircId="Tunnel-113" mainComp="false" Show_id="false" Show_Val="false" Pos="-684,20" rotation="-360" hflip="-1" vflip="1" label="Tunnel-113" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="DATA" IsBus="true" />
+
+<item itemtype="Tunnel" CircId="Tunnel-114" mainComp="false" Show_id="false" Show_Val="false" Pos="-860,100" rotation="-360" hflip="1" vflip="1" label="Tunnel-114" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="DATA" IsBus="true" />
+
+<item itemtype="Tunnel" CircId="Tunnel-115" mainComp="false" Show_id="false" Show_Val="false" Pos="-868,28" rotation="0" hflip="1" vflip="1" label="Tunnel-115" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="RD_" IsBus="false" />
+
+<item itemtype="Tunnel" CircId="Tunnel-116" mainComp="false" Show_id="false" Show_Val="false" Pos="-864,108" rotation="0" hflip="1" vflip="1" label="Tunnel-116" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="WR_" IsBus="false" />
 
 <item itemtype="Node" CircId="Node-34" mainComp="false" Pos="-900,252" />
 
@@ -326,10 +342,16 @@
 
 <item itemtype="Connector" uid="Connector-272" startpinid="Tunnel-53-pin" endpinid="Memory-51-Pin_We" pointList="-596,316,-604,316,-604,284,-596,284" />
 
-<item itemtype="Connector" uid="Connector-380" startpinid="Tunnel-106-pin" endpinid="out_led_d0-105-ADDR" pointList="-796,32,-788,32" />
+<item itemtype="Connector" uid="Connector-383" startpinid="Tunnel-111-pin" endpinid="0xC000_C003_toggles-109-ADDR" pointList="-868,20,-856,20" />
 
-<item itemtype="Connector" uid="Connector-381" startpinid="Tunnel-107-pin" endpinid="out_led_d0-105-DATA" pointList="-796,40,-788,40" />
+<item itemtype="Connector" uid="Connector-384" startpinid="Tunnel-112-pin" endpinid="0xE000_E003_LEDs-110-ADDR" pointList="-860,92,-852,92" />
 
-<item itemtype="Connector" uid="Connector-382" startpinid="Tunnel-108-pin" endpinid="out_led_d0-105-WR_" pointList="-800,48,-788,48" />
+<item itemtype="Connector" uid="Connector-385" startpinid="Tunnel-114-pin" endpinid="0xE000_E003_LEDs-110-DATA" pointList="-860,100,-852,100" />
+
+<item itemtype="Connector" uid="Connector-386" startpinid="0xC000_C003_toggles-109-DATA" endpinid="Tunnel-113-pin" pointList="-696,20,-684,20" />
+
+<item itemtype="Connector" uid="Connector-387" startpinid="Tunnel-115-pin" endpinid="0xC000_C003_toggles-109-RD_" pointList="-868,28,-856,28" />
+
+<item itemtype="Connector" uid="Connector-388" startpinid="Tunnel-116-pin" endpinid="0xE000_E003_LEDs-110-WR_" pointList="-864,108,-852,108" />
 
 </circuit>
