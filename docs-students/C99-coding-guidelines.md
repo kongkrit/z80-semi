@@ -1,5 +1,4 @@
-
-# Coding guidelines for `Bare-Metal C` Course using `SDCC`.
+# Coding Guidelines for `Bare-Metal C` Course using `SDCC`.
 
 ### **1. Data Types & Precision**
 
@@ -16,6 +15,8 @@
 * **Rule 1.3: Avoid Floating Point.**
   * The Z80 has no FPU. Floats are emulated in software and are incredibly slow and code-heavy.
   * **Why:** Keeps the focus on what the CPU actually does.
+
+---
 
 ### **2. Memory Mapped I/O (MMIO)**
 
@@ -45,6 +46,9 @@
     // Usage
     *LED_PORT = 0xFF; // Writes 0xFF to address bus 0x4000
     ```
+
+---
+
 ### **3. Memory Management**
 
 *Rationale: There is no OS to clean up messes. Memory is finite (SRAM).*
@@ -55,6 +59,8 @@
 * **Rule 3.2: Use `const` for Read-Only Data.**
   * Lookup tables (e.g., 7-segment display fonts) should be `const`.
   * **Why:** On some architectures this saves RAM by keeping data in ROM/Flash. On Z80/SDCC, it helps prevents accidental corruption.
+
+---
 
 ### **4. Functions & Control Flow**
 
@@ -70,23 +76,30 @@
   * Limit functions to ~20 lines where possible.
   * **Why:** SDCC optimizes small functions better, and it helps students trace execution logic mentally.
 
+---
+
 ### **5. Bit Manipulation**
 
 *Rationale: Hardware control often requires changing 1 bit without affecting the other 7.*
 
 * **Rule 5.1: Use Explicit Shifts and Masks.**
-  * Do not use "Bit Fields" in structs (compiler implementation varies too much).
+  * Do not use "Bit Fields" in `struct`s (compiler implementation varies too much).
   * **Why:** `(1 << 3)` is universal. Bit fields are not.
 * **Rule 5.2: Read-Modify-Write.**
   * To change one bit, read the port, modify the bit, write it back.
-  * *Example:*
+  * **Why:** To ensure only the desired bit is changed while preserving the others.
+  * *Example: Set bit 3 HIGH (OR operation)*
     ```C
-    // Set bit 3 HIGH
-    *LED_PORT |= (1 << 3);
-
-    // Set bit 3 LOW
-    *LED_PORT &= ~(1 << 3);
+    // Read port, calculate new value, write port
+    *LED_PORT = *LED_PORT | (1 << 3); 
     ```
+  * *Example: Set bit 3 LOW (AND operation)*
+    ```C
+    // Read port, calculate new value, write port
+    *LED_PORT = *LED_PORT & (~(1 << 3));
+    ```
+---
+
 ### **6. SDCC Specific Constraints**
 
 *Rationale: SDCC is a great compiler, but it has quirks tailored for 8-bit systems.*
@@ -96,6 +109,28 @@
 * **Rule 6.2: Global variables for large arrays.**
   * If you need a large array (buffer), make it static or global, not local to a function.
   * **Why:** Large local variables can overflow the stack.
+* **Rule 6.3: Do not use in-line assembly `__asm__(...)`, except `__asm__("nop");`**
+  * **Why:** We teach portable C99, not Z80 assembly. `nop` is allowed only to create needed software delays.
+---
+
+### **7. Operator Use & Clarity**
+
+*Rationale: Explicit operations prevent code ambiguity and eliminate subtle operator side-effects, leading to clearer code.*
+
+* **Rule 7.1: Prohibit In-Line Composite Manipulation.**
+  * Never use compound assignment operators `+=`, `-=`, `^=`, `&=`, `|=`, `<<=`, etc.).
+  * Never use unary increment/decrement operators (`++`, `--`).
+  * **Why:** The long form (e.g., `d = d + 1;`) is **clear and unambiguous**, showing the full operation and storage. This prevents subtle bugs that arise from the confusing **side-effects** (changing a variable *and* returning a value) of composite operators like `++` and `--`.
+  * *Example:*
+    ```C
+    // BAD (Prohibited): d++;
+    // GOOD (Required):  d = d + 1;
+
+    // BAD (Prohibited): k ^= 0x80;
+    // GOOD (Required):  k = k ^ 0x80;
+    ```
+    
+---
 
 ### **Sample "Perfect" Student Code**
 
@@ -119,7 +154,8 @@ The template to demonstrate the guidelines in action:
 // Note: In real hardware, we'd use timers, but for basics, loops are fine.
 void delay_loops(uint16_t count) {
     while (count > 0) {
-        count = count - 1;
+        // Use explicit subtraction (Rule 7.1)
+        count = count - 1; 
         // 'nop' (No Operation) prevents compiler from optimizing this loop away completely
         __asm__("nop");
     }
@@ -140,8 +176,15 @@ void main(void) {
         if (pattern == 0x80) {
             pattern = 0x01;
         } else {
+            // Use explicit shift (Rule 7.1)
             pattern = pattern << 1;
         }
     }
 }
 ```
+
+---
+
+### **8. Read the `C99 Style Guide`**
+
+**Read** the [**C99 Style Guide**](./C99-style-guide.md) next.

@@ -1,8 +1,14 @@
 
 
-# **Bare Metal C: C99 Coding Standards & Style Guide**
+# **Bare Metal C: C99 Coding Guidelines & Style Guide**
 
 **Language:** C (SDCC Compiler/C99 Standard)
+
+---
+
+## **0. Prerequisite**
+
+Read the [**C99 Coding Guidelines**](./C99-coding-guidelines.md) document first.
 
 ## **1. Core Philosophy**
 
@@ -12,10 +18,13 @@ Moving from Python to C requires a shift in mindset. In C, you are managing the 
 * **Be Safe:** Use types that prevent errors before they happen.
 * **Be Readable:** Code is read much more often than it is written.
 
+---
+
 ## **2. File Organization**
 
-* **Header Guards:** Every .h file must be wrapped in generic include guards to prevent recursive inclusion.
-* **Includes:** System headers (< >) go first, followed by project headers (" ").
+* **Header Guards:** Every `.h` file must be wrapped in generic include guards to prevent recursive inclusion.
+* **Includes:** System headers (`< >`) go first, followed by project headers (`" "`).
+* **Comment Style:** Use C99-style single-line comments (`//`) for general notes and descriptions. Avoid multi-line C-style comments (`/* ... */`) unless commenting out large blocks of code.
 
 ```C
 #ifndef SENSOR_H
@@ -30,45 +39,40 @@ Moving from Python to C requires a shift in mindset. In C, you are managing the 
 #endif
 ```
 
+---
+
 ## **3. Formatting & Indentation**
 
 * **Indentation:** Use **4 Spaces**. Do not use tab characters. Configure your text editor (VS Code/SimulIDE) to "Insert Spaces" when pressing Tab.
 * **Braces:** Use "One True Brace Style" (opening brace on the same line). **Always** use braces, even for single-line statements.
 * **Closing Braces Alignment:** Closing braces (`}`) must vertically align with the line that opens the brace (`{`)
+  **Why:** This maintains clear visual block structure and prevents the **"dangling else"** error where the else accidentally attaches to the wrong `if` statement.
 
-**Good:**
+**Bad (Dangling Else Risk):**
 ```C
-if (fail) {
-    return;
+if (a > 0)
+    if (b > 0)
+        c = 1;
+else
+    c = 0; // This 'else' attaches to the second 'if (b > 0)'!
+```
+
+**Good:** Correctly resolves the ambiguity by making the compiler's default choice explicit.
+```C
+if (a > 0) {
+    if (b > 0) {
+        c = 1;
+    } else {
+        c = 0;
+    }
 }
 ```
-*Why: the opening brace `{` starts on `if`, so the closing brace `}` aligns with the leftmost character of `if`.*
 
-**Bad:**
-```C
-if (fail) {
-    return;
-  }
-```
-*Why: the opening brace `{` starts on `if`, but the closing brace `}` doesn't align with the leftmost character of `if`. This makes code harder to debug.*
-
-* **One Statement Per Line:** Never combine logic.
-
-**Bad:**
-```C
-if(fail) return; // Hard to debug
-```
-
-**Good:**
-```C
-if (fail) {
-    return;
-}
-```
+---
 
 ## **4. Data Types & Const Correctness**
 
-Stop using generic `int` or `long`. In embedded systems, we need to know exactly how many bits a number uses.
+**Do not use** generic `int` or `long`. In embedded systems, we need to know exactly how many bits a number uses.
 
 ### **4.1 Strict Types**
 
@@ -86,7 +90,7 @@ Always include <stdint.h> and <stdbool.h>.
 
 Variables should be immutable (`const`) by default. Only remove `const` if the variable **must** change (e.g., a counter or accumulator).
 
-* **Why?** In embedded systems like the Z80, const data can be stored in ROM (Flash), saving precious RAM.
+* **Why?** This prevents accidental changes later in the program (a common source of bugs) and allows the compiler to optimize how it uses limited memory.
 * **Rule:** If you don't assign a new value to it after initialization, it must be `const`.
 
 ```C
@@ -94,23 +98,37 @@ const uint8_t max_retries = 5;  // Good: This is a fixed setting
 uint8_t current_retry = 0;      // Good: This changes in a loop
 ```
 
+---
+
 ## **5. Naming Conventions**
 
-* **Variables & Functions:** snake_case (lowercase with underscores).
+* **Variables & Functions:** Use **snake_case** (lowercase with underscores).
   * `uint8_t sensor_value;`
   * `void read_data(void);`
-* **Constants & Macros:** UPPER_CASE.
+* **Constants & Macros:** Use **UPPER_CASE**.
   * `#define MAX_BUFFER 255`
   * `const uint8_t LED_PIN = 1;`
+* **Pointer Spacing:** Always attach the asterisk (`*`) to the **variable name**, not the type.
+  **Good:** `uint8_t *data_ptr;`
+  **Bad:** `uint8_t* data_ptr;`
+
+---
 
 ## **6. Functions & Scope**
 
-* **Explicit Void:** If a function takes no arguments, write void explicitly.
+* **Explicit Void:** Functions taking no arguments must explicitly use **`void`**.
   * `int32_t calculate_sum(void);`
-* **Variable Scope:** Declare loop counters inside the loop definition (C99 feature) to keep them local.
+* **Variable Scope:** Declare loop counters **inside** the loop definition (C99 feature) to keep them local to the block.
   ```C
-  for (uint8_t i = 0; i < 10; i++) { ... }
+  // Use explicit assignment (i = i + 1) to comply with the rule against composite operators.
+  for (uint8_t i = 0; i < 10; i = i + 1) {
+      // ...
+  }
   ```
+* **Header Prototypes:** All function prototypes must be declared in a header file (`.h`) before use in a source file (`.c`). C is compiled sequentially, unlike Python.
+
+---
+
 ## **7. Python vs. C Cheat Sheet**
 
 | Feature | Python | C99 Guideline |
