@@ -1,4 +1,4 @@
-# Coding Guidelines for `Bare-Metal C` Course using `SDCC`.
+# C99 Coding Guidelines for `Bare-Metal C` Course using `SDCC`.
 
 ### **1. Data Types & Precision**
 
