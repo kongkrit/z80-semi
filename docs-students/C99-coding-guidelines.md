@@ -111,9 +111,9 @@
 *Rationale: Explicit operations prevent ambiguity and ensure the read-modify-write cycle is visible.*
 
 * **Rule 8.1: Prohibit Composite Assignments.**
-  * Do not use `+=`, `-=`, `++`, or `--`. The long form is clearer.
-  * **Bad:** `d++;`  |  `m <<= 2;`
-  * **Good:** `d = d + 1;`  |  `m = m << 2;`
+  * Do not use `+=`, `-=`, `&=`, `<<=`, `++`, or `--`. The long form is clearer.
+  * **Bad Examples:** 1. `d++;` 2. `m <<= 2;` 3. `k ^= 0x70U;`
+  * **Good Examples:** 1. `d = d + 1;` 2. `m = m << 2;` 3. `k = k ^ 0x70U;`
 
 ---
 
