@@ -1,4 +1,4 @@
-# setup simulide to be finished...
+# setup simulide:
 
 ## 0. Prerequisite:
 - *Before install simulide, you must have installed the tools. See [tools setup instructions](./1-setup-tools.md).*
